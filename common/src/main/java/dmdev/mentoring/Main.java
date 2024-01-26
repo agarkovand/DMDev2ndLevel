@@ -1,4 +1,4 @@
-package groupId;
+package dmdev.mentoring;
 
 public class Main {
     public static void main(String[] args) {
