@@ -6,9 +6,16 @@
     <parent>
         <groupId>dmdev.mentoring</groupId>
         <artifactId>agarkov-2nd-level</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>common</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>

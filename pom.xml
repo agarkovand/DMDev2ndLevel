@@ -21,10 +21,17 @@
         <revision>1.0.0-SNAPSHOT</revision>
     </properties>
 
-
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-text</artifactId>
+                <version>1.11.0</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
-
         <pluginManagement>
             <plugins>
                 <plugin>
