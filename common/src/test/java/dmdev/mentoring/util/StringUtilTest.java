@@ -1,15 +1,18 @@
 package dmdev.mentoring.util;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class StringUtilTest {
 
-    @org.junit.jupiter.api.Test
+    @Test
     void prepend() {
         assertTrue(true);
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void capitalize() {
         String input = "to be capitalized";
         String expected = "To Be Capitalized";
