@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,10 +21,10 @@ import java.time.LocalDateTime;
 public class Game {
 
     @Id
-    @GeneratedValue
-    private Long gameId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String tournament;
-    private LocalDateTime dateTime;
+    private LocalDateTime scheduledOn;
     @Enumerated(EnumType.STRING)
     private GameStatus status;
     private Long stadiumId;

@@ -1,5 +1,5 @@
 package dmdev.mentoring.entity;
 
-public enum Countries {
+public enum Country {
     POLAND, UKRAINE, BELARUS
 }
