@@ -6,13 +6,15 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
@@ -29,7 +31,13 @@ public class Ticket {
     private TicketStatus status;
     private String sectorLabel;
     private Integer seatNumber;
-    private LocalDateTime distributionDate;
-    private Long gameId;
-    private Long spectatorId;
+    private LocalDate distributionDate;
+
+    @ManyToOne()
+    @JoinColumn(name = "spectator_id")
+    private Spectator spectator;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "game_id")
+    private Game game;
 }

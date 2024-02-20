@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = "id" )
+@EqualsAndHashCode(exclude = "id")
 @Builder
 @Entity
 public class Stadium {
