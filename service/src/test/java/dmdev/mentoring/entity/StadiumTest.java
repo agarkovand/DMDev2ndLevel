@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class StadiumTest extends AbstractEntityTest {
 
     @Test
-    void whenSave_thenPersisted() {
+    void testPersistence() {
         Stadium expectedStadium = Stadium.builder()
                 .name("PGE Narodowy")
                 .build();

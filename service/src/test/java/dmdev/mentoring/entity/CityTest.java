@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CityTest extends AbstractEntityTest {
 
     @Test
-    public void whenSave_thenCityPersisted() {
+    public void testPersistence() {
         City expected = City.builder()
                 .name("Kielce")
                 .region("Świętokrzyskie województwo")

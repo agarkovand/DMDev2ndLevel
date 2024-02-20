@@ -3,12 +3,11 @@ package dmdev.mentoring.entity;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
-class StadiumSectorTest extends AbstractEntityTest{
+class StadiumSectorTest extends AbstractEntityTest {
 
     @Test
-    void whenSave_thenPersisted() {
+    void testPersistance() {
         Stadium expectedStadium = Stadium.builder()
                 .name("Suzuki Arena")
                 .build();
