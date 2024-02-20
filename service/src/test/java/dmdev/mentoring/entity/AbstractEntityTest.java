@@ -1,4 +1,4 @@
-package dmdev.mentoring;
+package dmdev.mentoring.entity;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
