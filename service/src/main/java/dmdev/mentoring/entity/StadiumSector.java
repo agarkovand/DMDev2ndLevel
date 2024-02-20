@@ -11,11 +11,13 @@ import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(exclude = "id")
 @Builder
 @Entity
 public class StadiumSector {
@@ -28,7 +30,7 @@ public class StadiumSector {
     @Enumerated(EnumType.STRING)
     private StadiumSectorStatus status;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "stadium_id")
     private Stadium stadium;
 }
