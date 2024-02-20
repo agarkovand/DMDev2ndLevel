@@ -6,6 +6,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,5 +27,8 @@ public class StadiumSector {
     private Integer seats;
     @Enumerated(EnumType.STRING)
     private StadiumSectorStatus status;
-    private Long stadiumId;
+
+    @ManyToOne
+    @JoinColumn(name = "stadium_id")
+    private Stadium stadium;
 }

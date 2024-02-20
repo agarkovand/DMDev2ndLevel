@@ -11,7 +11,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -27,7 +27,7 @@ public class Ticket {
     private TicketStatus status;
     private String sectorLabel;
     private Integer seatNumber;
-    private LocalDate distributionDate;
+    private LocalDateTime distributionDate;
     private Long gameId;
     private Long spectatorId;
 }

@@ -18,7 +18,12 @@
         <property name="format_sql">true</property>
         <property name="hbm2ddl.auto">update</property>
 
-        <mapping class="dmdev.mentoring.entity.Stadium"/>
         <mapping class="dmdev.mentoring.entity.City"/>
+        <mapping class="dmdev.mentoring.entity.FootballClub"/>
+        <mapping class="dmdev.mentoring.entity.Game"/>
+        <mapping class="dmdev.mentoring.entity.Spectator"/>
+        <mapping class="dmdev.mentoring.entity.Stadium"/>
+        <mapping class="dmdev.mentoring.entity.StadiumSector"/>
+        <mapping class="dmdev.mentoring.entity.Ticket"/>
     </session-factory>
 </hibernate-configuration>
