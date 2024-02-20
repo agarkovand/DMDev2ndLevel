@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class GameTest extends AbstractEntityTest {
 
     @Test
-    void testPersistance() {
+    void testPersistence() {
         Stadium expectedStadium = Stadium.builder()
                 .name("Suzuki Arena")
                 .build();
