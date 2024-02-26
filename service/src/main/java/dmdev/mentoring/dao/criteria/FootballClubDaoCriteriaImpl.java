@@ -20,11 +20,23 @@ public class FootballClubDaoCriteriaImpl implements FootballClubDao {
 
     @Override
     public List<FootballClub> findAll(Session session) {
-        return null;
+        var cb = session.getCriteriaBuilder();
+        var criteria = cb.createQuery(FootballClub.class);
+        var footballClub = criteria.from(FootballClub.class);
+        criteria.select(footballClub);
+        return session.createQuery(criteria).list();
     }
 
     @Override
     public List<FootballClub> finaAllByCountry(Session session, Country country) {
-        return null;
+        var cb = session.getCriteriaBuilder();
+        var criteria = cb.createQuery(FootballClub.class);
+        var footballClub = criteria.from(FootballClub.class);
+
+        criteria.select(footballClub).where(
+                cb.equal(footballClub.get("city").get("country"), country)
+        );
+
+        return session.createQuery(criteria).list();
     }
 }

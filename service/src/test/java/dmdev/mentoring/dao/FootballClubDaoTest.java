@@ -3,7 +3,7 @@ package dmdev.mentoring.dao;
 import dmdev.mentoring.dao.criteria.FootballClubDaoCriteriaImpl;
 import dmdev.mentoring.dao.querydsl.FootballClubDaoQueryDslImpl;
 import dmdev.mentoring.entity.FootballClub;
-import org.junit.jupiter.api.Test;
+import dmdev.mentoring.entity.enums.Country;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -26,8 +26,15 @@ class FootballClubDaoTest extends AbstractDaoTest {
         assertThat(fcNames).containsExactly(FC_NAMES);
     }
 
-    @Test
-    void finaAllByCountry() {
+    @ParameterizedTest
+    @MethodSource("footballClubDaoSource")
+    void finaAllByCountry(FootballClubDao fcDao) {
+        var polandFootballClubs = fcDao.finaAllByCountry(session, Country.POLAND);
+        assertThat(polandFootballClubs).hasSize(2);
+
+        var fcNames = polandFootballClubs.stream().map(FootballClub::getName).collect(Collectors.toList());
+
+        assertThat(fcNames).containsExactly(FC_NAMES[0], FC_NAMES[1]);
     }
 
     public Stream<FootballClubDao> footballClubDaoSource() {
