@@ -1,8 +1,11 @@
 package dmdev.mentoring.dao.criteria;
 
 import dmdev.mentoring.dao.FootballClubDao;
+import dmdev.mentoring.entity.City_;
 import dmdev.mentoring.entity.FootballClub;
+import dmdev.mentoring.entity.FootballClub_;
 import dmdev.mentoring.entity.enums.Country;
+import jakarta.persistence.criteria.Predicate;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.hibernate.Session;
@@ -28,14 +31,20 @@ public class FootballClubDaoCriteriaImpl implements FootballClubDao {
     }
 
     @Override
-    public List<FootballClub> findAllByCountry(Session session, Country country) {
+    public List<FootballClub> findAllByCountries(Session session, List<Country> countries) {
         var cb = session.getCriteriaBuilder();
         var criteria = cb.createQuery(FootballClub.class);
         var footballClub = criteria.from(FootballClub.class);
 
-        criteria.select(footballClub).where(
-                cb.equal(footballClub.get("city").get("country"), country)
-        );
+        var predicates = countries
+                .stream()
+                .map(country -> cb.equal(footballClub.get(FootballClub_.city).get(City_.COUNTRY), country))
+                .toList();
+
+        criteria.select(footballClub)
+                .where(
+                        cb.or(predicates.toArray(Predicate[]::new))
+                );
 
         return session.createQuery(criteria).list();
     }
