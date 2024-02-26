@@ -37,7 +37,7 @@ public class AbstractEntityTest {
 
     @AfterEach
     void commitTransaction() {
-        session.getTransaction().commit();
+        session.getTransaction().rollback();
         session.close();
     }
 }

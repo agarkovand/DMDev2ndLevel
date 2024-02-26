@@ -1,5 +1,7 @@
 package dmdev.mentoring.entity;
 
+import dmdev.mentoring.entity.enums.Country;
+import dmdev.mentoring.entity.enums.StadiumSectorStatus;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -29,9 +31,7 @@ class StadiumSectorTest extends AbstractEntityTest {
         session.persist(expectedStadium);
         session.persist(expectedSector);
 
-        session.evict(expectedCity);
-        session.evict(expectedStadium);
-        session.evict(expectedSector);
+        session.clear();
 
         StadiumSector actualSector = session.get(StadiumSector.class, expectedSector.getId());
         Stadium actualStadium = actualSector.getStadium();

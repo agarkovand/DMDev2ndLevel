@@ -1,5 +1,6 @@
 package dmdev.mentoring.entity;
 
+import dmdev.mentoring.entity.enums.Country;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -14,22 +15,21 @@ class FootballClubTest extends AbstractEntityTest {
                 .country(Country.POLAND)
                 .build();
 
-        FootballClub expectedFC = FootballClub.builder()
+        FootballClub expectedFootballClub = FootballClub.builder()
                 .name("Korona Kielce")
                 .build();
 
-        expectedFC.setCity(expectedCity);
+        expectedFootballClub.setCity(expectedCity);
 
         session.persist(expectedCity);
-        session.persist(expectedFC);
+        session.persist(expectedFootballClub);
 
-        session.evict(expectedCity);
-        session.evict(expectedFC);
+        session.clear();
 
-        FootballClub actualFC = session.get(FootballClub.class, expectedFC.getId());
+        FootballClub actualFootballClub = session.get(FootballClub.class, expectedFootballClub.getId());
         City actualCity = session.get(City.class, expectedCity.getId());
 
-        assertThat(actualFC).isEqualTo(expectedFC);
+        assertThat(actualFootballClub).isEqualTo(expectedFootballClub);
         assertThat(actualCity).isEqualTo(expectedCity);
     }
 }

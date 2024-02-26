@@ -1,5 +1,8 @@
 package dmdev.mentoring.entity;
 
+import dmdev.mentoring.entity.enums.Country;
+import dmdev.mentoring.entity.enums.GameStatus;
+import dmdev.mentoring.entity.enums.TicketStatus;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -60,20 +63,13 @@ class TicketTest extends AbstractEntityTest {
         session.persist(expectedGame);
         session.persist(expectedTicket);
 
-        session.evict(expectedHostFcCity);
-        session.evict(expectedStadium);
-        session.evict(expectedGuestFcCity);
-        session.evict(expectedHostFC);
-        session.evict(expectedGuestFC);
-        session.evict(expectedGame);
-        session.evict(expectedTicket);
+        session.clear();
 
         Ticket actualTicket = session.get(Ticket.class, expectedTicket.getId());
         Game actualGame = actualTicket.getGame();
 
         assertThat(actualTicket).isEqualTo(expectedTicket);
         assertThat(actualGame).isEqualTo(expectedGame);
-
     }
 
 }

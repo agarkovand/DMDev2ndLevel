@@ -1,5 +1,6 @@
 package dmdev.mentoring.entity;
 
+import dmdev.mentoring.entity.enums.Country;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -7,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CityTest extends AbstractEntityTest {
 
     @Test
-    public void testPersistence() {
+    void testPersistence() {
         City expected = City.builder()
                 .name("Kielce")
                 .region("Świętokrzyskie województwo")

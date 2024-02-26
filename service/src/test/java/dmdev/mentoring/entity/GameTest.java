@@ -1,5 +1,7 @@
 package dmdev.mentoring.entity;
 
+import dmdev.mentoring.entity.enums.Country;
+import dmdev.mentoring.entity.enums.GameStatus;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -50,12 +52,7 @@ class GameTest extends AbstractEntityTest {
         session.persist(expectedGuestFC);
         session.persist(expectedGame);
 
-        session.evict(expectedHostFcCity);
-        session.evict(expectedStadium);
-        session.evict(expectedGuestFcCity);
-        session.evict(expectedHostFC);
-        session.evict(expectedGuestFC);
-        session.evict(expectedGame);
+        session.clear();
 
         Game actualGame = session.get(Game.class, expectedGame.getId());
 

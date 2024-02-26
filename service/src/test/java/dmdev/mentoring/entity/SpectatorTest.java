@@ -1,5 +1,7 @@
 package dmdev.mentoring.entity;
 
+import dmdev.mentoring.entity.enums.Country;
+import dmdev.mentoring.entity.enums.Gender;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -47,10 +49,7 @@ class SpectatorTest extends AbstractEntityTest {
         session.persist(expectedSpectator1);
         session.persist(expectedSpectator2);
 
-        session.evict(expectedCity);
-        session.evict(expectedFC);
-        session.evict(expectedSpectator1);
-        session.evict(expectedSpectator2);
+        session.clear();
 
         FootballClub actualFC = session.get(FootballClub.class, expectedFC.getId());
         City actualFcCity = actualFC.getCity();

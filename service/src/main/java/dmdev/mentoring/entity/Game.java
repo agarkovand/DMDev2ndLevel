@@ -1,12 +1,13 @@
 package dmdev.mentoring.entity;
 
+import dmdev.mentoring.entity.enums.GameStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,15 +34,12 @@ public class Game {
     @Enumerated(EnumType.STRING)
     private GameStatus status;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "stadium_id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Stadium stadium;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "host_team_id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private FootballClub hostTeam;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "guest_team_id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private FootballClub guestTeam;
 }

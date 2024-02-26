@@ -1,5 +1,6 @@
 package dmdev.mentoring.entity;
 
+import dmdev.mentoring.entity.enums.TicketStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
