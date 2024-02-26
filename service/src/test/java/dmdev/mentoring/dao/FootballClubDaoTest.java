@@ -1,6 +1,7 @@
 package dmdev.mentoring.dao;
 
 import dmdev.mentoring.dao.criteria.FootballClubDaoCriteriaImpl;
+import dmdev.mentoring.dao.querydsl.FootballClubDaoQueryDslImpl;
 import dmdev.mentoring.entity.FootballClub;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -38,7 +39,7 @@ class FootballClubDaoTest extends AbstractDaoTest {
     }
 
     public Stream<FootballClubDao> footballClubDaoSource() {
-        return Stream.of(FootballClubDaoCriteriaImpl.getInstance() /**,
-                FootballClubDaoQueryDslImpl.getInstance() **/);
+        return Stream.of(FootballClubDaoCriteriaImpl.getInstance(),
+                FootballClubDaoQueryDslImpl.getInstance());
     }
 }
