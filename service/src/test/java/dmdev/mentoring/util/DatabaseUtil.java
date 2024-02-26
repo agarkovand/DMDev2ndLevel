@@ -13,18 +13,13 @@ import static dmdev.mentoring.entity.enums.Country.*;
 @UtilityClass
 public class DatabaseUtil {
 
-    public static final String[] FC_NAMES;
-
-    static {
-        FC_NAMES = new String[]{
-                "FC Korona Kielce",
-                "FC Legia Warszawa",
-                "FC Metallist Kharkov",
-                "FC Dinamo Kiev",
-                "FC Minsk"
-        };
-    }
-
+    public static final String[] FC_NAMES = new String[]{
+            "FC Korona Kielce",
+            "FC Legia Warszawa",
+            "FC Metallist Kharkov",
+            "FC Dinamo Kiev",
+            "FC Minsk"
+    };
 
     public static void initDataBase(SessionFactory sessionFactory) {
         @Cleanup Session session = sessionFactory.openSession();
