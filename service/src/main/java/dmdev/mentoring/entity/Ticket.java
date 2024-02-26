@@ -1,14 +1,18 @@
 package dmdev.mentoring.entity;
 
+import dmdev.mentoring.entity.enums.TicketStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
@@ -16,6 +20,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(exclude = "id")
 @Builder
 @Entity
 public class Ticket {
@@ -28,6 +33,12 @@ public class Ticket {
     private String sectorLabel;
     private Integer seatNumber;
     private LocalDate distributionDate;
-    private Long gameId;
-    private Long spectatorId;
+
+    @ManyToOne()
+    @JoinColumn(name = "spectator_id")
+    private Spectator spectator;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "game_id")
+    private Game game;
 }

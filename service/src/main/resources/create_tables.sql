@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS public.game
 (
     id bigint NOT NULL GENERATED ALWAYS AS IDENTITY,
     tournament character varying(50),
-	scheduled_on timestamp with time zone NOT NULL,
+    scheduled_on timestamp with time zone NOT NULL,
     status character varying(20) NOT NULL,
     stadium_id bigint NOT NULL,
     host_team_id bigint NOT NULL,
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS public.ticket
     status character varying(20) NOT NULL DEFAULT 'Issued',
     sector_label character varying(10) NOT NULL,
     seat_number bigint NOT NULL,
-    distribution_date time with time zone,
+    distribution_date date,
     game_id bigint NOT NULL,
     spectator_id bigint,
     PRIMARY KEY (id)
