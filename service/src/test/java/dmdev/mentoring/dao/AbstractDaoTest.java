@@ -8,18 +8,16 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.TestInstance;
 
 import static dmdev.mentoring.util.DatabaseUtil.initDataBase;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class AbstractDaoTest {
 
-    protected SessionFactory sessionFactory;
+    protected static SessionFactory sessionFactory;
     protected Session session;
 
     @BeforeAll
-    void initDB() {
+    static void initDB() {
         Configuration cfg = new Configuration();
         cfg.setPhysicalNamingStrategy(new CamelCaseToUnderscoresNamingStrategy());
         cfg.configure();
@@ -28,7 +26,7 @@ public class AbstractDaoTest {
     }
 
     @AfterAll
-    void closeSessionFactory() {
+    static void closeSessionFactory() {
         sessionFactory.close();
     }
 

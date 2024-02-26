@@ -28,7 +28,6 @@ public class FootballClubDaoQueryDslImpl implements FootballClubDao {
                 .select((footballClub))
                 .from(footballClub)
                 .fetch();
-
     }
 
     @Override

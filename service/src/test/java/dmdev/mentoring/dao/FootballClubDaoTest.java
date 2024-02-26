@@ -38,7 +38,7 @@ class FootballClubDaoTest extends AbstractDaoTest {
         assertThat(fcNames).containsExactly(FC_NAMES[0], FC_NAMES[1], FC_NAMES[4]);
     }
 
-    public Stream<FootballClubDao> footballClubDaoSource() {
+    public static Stream<FootballClubDao> footballClubDaoSource() {
         return Stream.of(FootballClubDaoCriteriaImpl.getInstance(),
                 FootballClubDaoQueryDslImpl.getInstance());
     }
