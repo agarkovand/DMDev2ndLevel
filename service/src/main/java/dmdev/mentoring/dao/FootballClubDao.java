@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface FootballClubDao {
     List<FootballClub> findAll(Session session);
-    List<FootballClub> finaAllByCountry(Session session, Country country);
+    List<FootballClub> findAllByCountry(Session session, Country country);
 }

@@ -24,7 +24,7 @@ public class FootballClubDaoQueryDslImpl implements FootballClubDao {
     }
 
     @Override
-    public List<FootballClub> finaAllByCountry(Session session, Country country) {
+    public List<FootballClub> findAllByCountry(Session session, Country country) {
         return null;
     }
 }

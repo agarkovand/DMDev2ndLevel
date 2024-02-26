@@ -29,7 +29,7 @@ class FootballClubDaoTest extends AbstractDaoTest {
     @ParameterizedTest
     @MethodSource("footballClubDaoSource")
     void finaAllByCountry(FootballClubDao fcDao) {
-        var polandFootballClubs = fcDao.finaAllByCountry(session, Country.POLAND);
+        var polandFootballClubs = fcDao.findAllByCountry(session, Country.POLAND);
         assertThat(polandFootballClubs).hasSize(2);
 
         var fcNames = polandFootballClubs.stream().map(FootballClub::getName).collect(Collectors.toList());
