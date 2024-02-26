@@ -22,4 +22,24 @@ public class CityTest extends AbstractEntityTest {
 
         assertThat(actual).isEqualTo(expected);
     }
+
+    @Test
+    void testHql() {
+        City expected = City.builder()
+                .name("Kielce")
+                .region("Świętokrzyskie województwo")
+                .country(Country.POLAND)
+                .build();
+
+        session.persist(expected);
+        session.evict(expected);
+
+        var result = session
+                .createQuery("select c from City c where c.name = :cityName",
+                        City.class)
+                .setParameter("cityName", "Kielce")
+                .list();
+        City actual = result.get(0);
+        assertThat(actual).isEqualTo(expected);
+    }
 }
