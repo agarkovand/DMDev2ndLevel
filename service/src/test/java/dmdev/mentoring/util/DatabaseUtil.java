@@ -8,41 +8,64 @@ import lombok.experimental.UtilityClass;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import java.util.Map;
+
 import static dmdev.mentoring.entity.enums.Country.*;
+import static java.util.Map.entry;
 
 @UtilityClass
 public class DatabaseUtil {
 
-    public static final String[] FC_NAMES = new String[]{
-            "FC Korona Kielce",
-            "FC Legia Warszawa",
-            "FC Metallist Kharkov",
-            "FC Dinamo Kiev",
-            "FC Minsk"
-    };
+    public static FootballClub[] ALL_FC;
+    public static String[] ALL_FC_NAMES;
+    public static FootballClub[] POLAND_FC;
+    public static String[] POLAND_FC_NAMES;
+    public static FootballClub[] BELARUS_FC;
+    public static String[] BELARUS_FC_NAMES;
 
     public static void initDataBase(SessionFactory sessionFactory) {
         @Cleanup Session session = sessionFactory.openSession();
-        City Kielce = saveCity(session, "Kielce", "Świętokrzyskie województwo", POLAND);
-        City Warszawa = saveCity(session, "Warszawa", "Mazowieckie województwo", POLAND);
-        City Kharkov = saveCity(session, "Kharkov", "Kharkov", UKRAINE);
-        City Kiev = saveCity(session, "Kiev", "Kiev", UKRAINE);
-        City Minsk = saveCity(session, "Minsk", "Minsk", BELARUS);
 
-        saveFootbalClub(session, FC_NAMES[0], Kielce);
-        saveFootbalClub(session, FC_NAMES[1], Warszawa);
-        saveFootbalClub(session, FC_NAMES[2], Kharkov);
-        saveFootbalClub(session, FC_NAMES[3], Kiev);
-        saveFootbalClub(session, FC_NAMES[4], Minsk);
+        var cities = Map.ofEntries(
+                entry("Kielce", saveCity(session, "Kielce", "Świętokrzyskie", POLAND)),
+                entry("Warszawa", saveCity(session, "Warszawa", "Mazowieckie", POLAND)),
+                entry("Krakow", saveCity(session, "Kraków", "Małopolskie", POLAND)),
+                entry("Kharkov", saveCity(session, "Kharkov", "Kharkov", UKRAINE)),
+                entry("Kiev", saveCity(session, "Kiev", "Kiev", UKRAINE)),
+                entry("Minsk", saveCity(session, "Minsk", "Minsk", BELARUS))
+        );
 
+        var footballClubs = Map.ofEntries(
+                entry("Korona Kielce", saveFootbalClub(session, "Korona Kielce", cities.get("Kielce"))),
+                entry("Legia Warszawa", saveFootbalClub(session, "Legia Warszawa", cities.get("Warszawa"))),
+                entry("Cracovia", saveFootbalClub(session, "Cracovia", cities.get("Krakow"))),
+
+                entry("Metallist Kharkov", saveFootbalClub(session, "Metallist Kharkov", cities.get("Kharkov"))),
+                entry("Dinamo Kiev", saveFootbalClub(session, "Dinamo Kiev", cities.get("Kiev"))),
+                entry("Minsk", saveFootbalClub(session, "Minsk", cities.get("Minsk")))
+        );
+
+        ALL_FC = footballClubs.values().toArray(FootballClub[]::new);
+        ALL_FC_NAMES = footballClubs.values().stream().map(FootballClub::getName).toArray(String[]::new);
+        POLAND_FC = footballClubs.values().stream()
+                .filter(fc -> POLAND.equals(fc.getCity().getCountry())).toArray(FootballClub[]::new);
+        POLAND_FC_NAMES = footballClubs.values().stream().
+                filter(fc -> POLAND.equals(fc.getCity().getCountry()))
+                .map(FootballClub::getName).toArray(String[]::new);
+        BELARUS_FC = footballClubs.values().stream()
+                .filter(fc -> BELARUS.equals(fc.getCity().getCountry())).toArray(FootballClub[]::new);
+        BELARUS_FC_NAMES = footballClubs.values().stream().
+                filter(fc -> BELARUS.equals(fc.getCity().getCountry()))
+                .map(FootballClub::getName).toArray(String[]::new);
     }
 
-    private static void saveFootbalClub(Session session, String name, City city) {
+    private static FootballClub saveFootbalClub(Session session, String name, City city) {
         FootballClub footballClub = FootballClub.builder()
                 .name(name)
                 .city(city)
                 .build();
         session.save(footballClub);
+        return footballClub;
     }
 
     private City saveCity(Session session, String cityName, String region, Country country) {

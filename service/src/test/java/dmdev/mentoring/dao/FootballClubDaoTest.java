@@ -11,35 +11,37 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static dmdev.mentoring.entity.enums.Country.*;
-import static dmdev.mentoring.util.DatabaseUtil.FC_NAMES;
+import static dmdev.mentoring.entity.enums.Country.BELARUS;
+import static dmdev.mentoring.entity.enums.Country.POLAND;
+import static dmdev.mentoring.util.DatabaseUtil.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class FootballClubDaoTest extends AbstractDaoTest {
+
+    public static Stream<FootballClubDao> footballClubDaoSource() {
+        return Stream.of(FootballClubDaoCriteriaImpl.getInstance(),
+                FootballClubDaoQueryDslImpl.getInstance());
+    }
 
     @ParameterizedTest
     @MethodSource("footballClubDaoSource")
     void findAll(FootballClubDao fcDao) {
         List<FootballClub> results = fcDao.findAll(session);
-        assertThat(results).hasSize(5);
+        assertThat(results).hasSize(ALL_FC.length);
 
         List<String> fcNames = results.stream().map(FootballClub::getName).collect(Collectors.toList());
-        assertThat(fcNames).containsExactly(FC_NAMES);
+        assertThat(fcNames).containsAll(Stream.of(ALL_FC_NAMES).toList());
     }
 
     @ParameterizedTest
     @MethodSource("footballClubDaoSource")
     void findAllByMultipleCountries(FootballClubDao fcDao) {
         var footballClubs = fcDao.findAllByCountries(session, Arrays.asList(POLAND, BELARUS));
-        assertThat(footballClubs).hasSize(3);
+        assertThat(footballClubs).hasSize(POLAND_FC.length + BELARUS_FC.length);
 
         var fcNames = footballClubs.stream().map(FootballClub::getName).collect(Collectors.toList());
 
-        assertThat(fcNames).containsExactly(FC_NAMES[0], FC_NAMES[1], FC_NAMES[4]);
-    }
-
-    public static Stream<FootballClubDao> footballClubDaoSource() {
-        return Stream.of(FootballClubDaoCriteriaImpl.getInstance(),
-                FootballClubDaoQueryDslImpl.getInstance());
+        assertThat(fcNames)
+                .containsAll(Stream.of(Stream.of(POLAND_FC_NAMES), Stream.of(BELARUS_FC_NAMES)).flatMap(s -> s).toList());
     }
 }
