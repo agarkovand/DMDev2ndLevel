@@ -1,6 +1,5 @@
 package dmdev.mentoring.dao.querydsl;
 
-import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQuery;
 import dmdev.mentoring.dao.FootballClubDao;
 import dmdev.mentoring.entity.FootballClub;
@@ -32,16 +31,13 @@ public class FootballClubDaoQueryDslImpl implements FootballClubDao {
 
     @Override
     public List<FootballClub> findAllByCountries(Session session, List<Country> countries) {
-        var predicateBuilder = QPredicate.builder();
-        for (Country country : countries) {
-            predicateBuilder.add(country, footballClub.city.country::eq);
-        }
-        Predicate predicate = predicateBuilder.buildOr();
+        var countryIn = QPredicate.builder()
+                .add(countries, footballClub.city.country::in).buildOr();
 
         return new JPAQuery<FootballClub>(session)
                 .select(footballClub)
                 .from(footballClub)
-                .where(predicate)
+                .where(countryIn)
                 .fetch();
     }
 }
