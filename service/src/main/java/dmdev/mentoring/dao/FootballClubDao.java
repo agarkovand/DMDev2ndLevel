@@ -12,5 +12,6 @@ public interface FootballClubDao {
     /**
      * Returns all Football Clubs playing in the countries
      */
-    List<FootballClub> findAllByCountries(Session session, List<Country> countries);
+    List<FootballClub> findByCountries(Session session, List<Country> countries);
+    List<FootballClub> findByCountryAndRegion(Session session, Country country, String region);
 }

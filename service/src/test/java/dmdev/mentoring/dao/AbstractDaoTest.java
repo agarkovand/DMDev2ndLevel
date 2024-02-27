@@ -1,5 +1,7 @@
 package dmdev.mentoring.dao;
 
+import dmdev.mentoring.dao.criteria.FootballClubDaoCriteriaImpl;
+import dmdev.mentoring.dao.querydsl.FootballClubDaoQueryDslImpl;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy;
@@ -8,6 +10,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+
+import java.util.stream.Stream;
 
 import static dmdev.mentoring.util.DatabaseUtil.initDataBase;
 
@@ -28,6 +32,11 @@ public class AbstractDaoTest {
     @AfterAll
     static void closeSessionFactory() {
         sessionFactory.close();
+    }
+
+    protected static Stream<FootballClubDao> footballClubDaoSource() {
+        return Stream.of(FootballClubDaoCriteriaImpl.getInstance(),
+                FootballClubDaoQueryDslImpl.getInstance());
     }
 
     @BeforeEach

@@ -20,6 +20,8 @@ public class DatabaseUtil {
     public static String[] ALL_FC_NAMES;
     public static FootballClub[] POLAND_FC;
     public static String[] POLAND_FC_NAMES;
+    public static FootballClub[] SWIETOKRZYSKIE_FC;
+    public static String[] SWIETOKRZYSKIE_FC_NAMES;
     public static FootballClub[] BELARUS_FC;
     public static String[] BELARUS_FC_NAMES;
 
@@ -30,6 +32,7 @@ public class DatabaseUtil {
                 entry("Kielce", saveCity(session, "Kielce", "Świętokrzyskie", POLAND)),
                 entry("Warszawa", saveCity(session, "Warszawa", "Mazowieckie", POLAND)),
                 entry("Krakow", saveCity(session, "Kraków", "Małopolskie", POLAND)),
+                entry("Raków", saveCity(session, "Raków", "Świętokrzyskie", POLAND)),
                 entry("Kharkov", saveCity(session, "Kharkov", "Kharkov", UKRAINE)),
                 entry("Kiev", saveCity(session, "Kiev", "Kiev", UKRAINE)),
                 entry("Minsk", saveCity(session, "Minsk", "Minsk", BELARUS))
@@ -39,6 +42,7 @@ public class DatabaseUtil {
                 entry("Korona Kielce", saveFootbalClub(session, "Korona Kielce", cities.get("Kielce"))),
                 entry("Legia Warszawa", saveFootbalClub(session, "Legia Warszawa", cities.get("Warszawa"))),
                 entry("Cracovia", saveFootbalClub(session, "Cracovia", cities.get("Krakow"))),
+                entry("Raków Częstochowa", saveFootbalClub(session, "Raków Częstochowa", cities.get("Raków"))),
 
                 entry("Metallist Kharkov", saveFootbalClub(session, "Metallist Kharkov", cities.get("Kharkov"))),
                 entry("Dinamo Kiev", saveFootbalClub(session, "Dinamo Kiev", cities.get("Kiev"))),
@@ -47,11 +51,26 @@ public class DatabaseUtil {
 
         ALL_FC = footballClubs.values().toArray(FootballClub[]::new);
         ALL_FC_NAMES = footballClubs.values().stream().map(FootballClub::getName).toArray(String[]::new);
+
+        // POLAND Football Clubs
         POLAND_FC = footballClubs.values().stream()
                 .filter(fc -> POLAND.equals(fc.getCity().getCountry())).toArray(FootballClub[]::new);
         POLAND_FC_NAMES = footballClubs.values().stream().
                 filter(fc -> POLAND.equals(fc.getCity().getCountry()))
                 .map(FootballClub::getName).toArray(String[]::new);
+
+        // SWIETOKRZYSKIE in POLAND Football Clubs
+        SWIETOKRZYSKIE_FC = footballClubs.values().stream()
+                .filter(fc -> POLAND.equals(fc.getCity().getCountry()))
+                .filter(fc -> "Świętokrzyskie".equals(fc.getCity().getRegion()))
+                .toArray(FootballClub[]::new);
+        SWIETOKRZYSKIE_FC_NAMES = footballClubs.values().stream()
+                .filter(fc -> POLAND.equals(fc.getCity().getCountry()))
+                .filter(fc -> "Świętokrzyskie".equals(fc.getCity().getRegion()))
+                .map(FootballClub::getName)
+                .toArray(String[]::new);
+
+         // BELARUS Football Clubs
         BELARUS_FC = footballClubs.values().stream()
                 .filter(fc -> BELARUS.equals(fc.getCity().getCountry())).toArray(FootballClub[]::new);
         BELARUS_FC_NAMES = footballClubs.values().stream().

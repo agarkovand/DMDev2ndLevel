@@ -30,7 +30,7 @@ public class FootballClubDaoQueryDslImpl implements FootballClubDao {
     }
 
     @Override
-    public List<FootballClub> findAllByCountries(Session session, List<Country> countries) {
+    public List<FootballClub> findByCountries(Session session, List<Country> countries) {
         var countryIn = QPredicate.builder()
                 .add(countries, footballClub.city.country::in).buildOr();
 
@@ -39,5 +39,10 @@ public class FootballClubDaoQueryDslImpl implements FootballClubDao {
                 .from(footballClub)
                 .where(countryIn)
                 .fetch();
+    }
+
+    @Override
+    public List<FootballClub> findByCountryAndRegion(Session session, Country country, String region) {
+        return null;
     }
 }
