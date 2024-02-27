@@ -2,6 +2,7 @@ package dmdev.mentoring.dao.querydsl;
 
 import com.querydsl.jpa.impl.JPAQuery;
 import dmdev.mentoring.dao.FootballClubDao;
+import dmdev.mentoring.dto.FootballClubFilter;
 import dmdev.mentoring.entity.FootballClub;
 import dmdev.mentoring.entity.enums.Country;
 import lombok.AccessLevel;
@@ -43,6 +44,20 @@ public class FootballClubDaoQueryDslImpl implements FootballClubDao {
 
     @Override
     public List<FootballClub> findByCountryAndRegion(Session session, Country country, String region) {
-        return null;
+        var filter = FootballClubFilter.builder()
+                .country(country)
+                .region(region)
+                .build();
+
+        var predicate = QPredicate.builder()
+                .add(filter.getCountry(), footballClub.city.country::eq)
+                .add(filter.getRegion(), footballClub.city.region::eq)
+                .buildAnd();
+
+        return new JPAQuery<FootballClub>(session)
+                .select(footballClub)
+                .from(footballClub)
+                .where(predicate)
+                .fetch();
     }
 }
