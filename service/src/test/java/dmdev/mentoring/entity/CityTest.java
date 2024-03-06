@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CityTest extends AbstractEntityTest {
 
     @Test
-    void testPersistence() {
+    void saveAndSelectWithHql() {
         City expected = createCity("Kielce", "Świętokrzyskie województwo", POLAND);
 
         session.persist(expected);
@@ -21,27 +21,27 @@ public class CityTest extends AbstractEntityTest {
     }
 
     @Test
-    void testHql() {
-        City expected = createCity("Kielce", "Świętokrzyskie województwo", POLAND);
+    void saveAndSelectWithHqlAndNativeQuery() {
+        var expectedCity = createCity("Kielce", "Świętokrzyskie województwo", POLAND);
 
-        session.persist(expected);
-        session.evict(expected);
+        session.persist(expectedCity);
+        session.evict(expectedCity);
 
         var hqlResult = session
                 .createQuery("select c from City c where c.name = :city",
                         City.class)
                 .setParameter("city", "Kielce")
                 .list();
-        City actual = hqlResult.get(0);
-        assertThat(actual).isEqualTo(expected);
+        var actualCityWithHql = hqlResult.get(0);
+        assertThat(actualCityWithHql).isEqualTo(expectedCity);
 
         var nativeQueryResult = session
                 .createNativeQuery("select c.* from city c where c.name = :city",
                         City.class)
                 .setParameter("city", "Kielce")
                 .list();
-        actual = nativeQueryResult.get(0);
-        assertThat(actual).isEqualTo(expected);
+        var actualCityWithNativeQuery = nativeQueryResult.get(0);
+        assertThat(actualCityWithNativeQuery).isEqualTo(expectedCity);
     }
 
     private static City createCity(String city, String region, Country country) {

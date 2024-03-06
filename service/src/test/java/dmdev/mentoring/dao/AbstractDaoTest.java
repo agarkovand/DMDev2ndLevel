@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 
 import static dmdev.mentoring.util.DatabaseUtil.initDataBase;
 
-public class AbstractDaoTest {
+public abstract class AbstractDaoTest {
 
     protected static SessionFactory sessionFactory;
     protected Session session;

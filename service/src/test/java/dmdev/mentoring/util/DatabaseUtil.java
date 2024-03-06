@@ -10,7 +10,9 @@ import org.hibernate.SessionFactory;
 
 import java.util.Map;
 
-import static dmdev.mentoring.entity.enums.Country.*;
+import static dmdev.mentoring.entity.enums.Country.BELARUS;
+import static dmdev.mentoring.entity.enums.Country.POLAND;
+import static dmdev.mentoring.entity.enums.Country.UKRAINE;
 import static java.util.Map.entry;
 
 @UtilityClass
@@ -27,6 +29,8 @@ public class DatabaseUtil {
 
     public static void initDataBase(SessionFactory sessionFactory) {
         @Cleanup Session session = sessionFactory.openSession();
+
+        session.beginTransaction();
 
         var cities = Map.ofEntries(
                 entry("Kielce", saveCity(session, "Kielce", "Świętokrzyskie", POLAND)),
@@ -49,6 +53,8 @@ public class DatabaseUtil {
                 entry("Minsk", saveFootbalClub(session, "Minsk", cities.get("Minsk")))
         );
 
+        session.getTransaction().commit();
+
         ALL_FC = footballClubs.values().toArray(FootballClub[]::new);
         ALL_FC_NAMES = footballClubs.values().stream().map(FootballClub::getName).toArray(String[]::new);
 
@@ -70,7 +76,7 @@ public class DatabaseUtil {
                 .map(FootballClub::getName)
                 .toArray(String[]::new);
 
-         // BELARUS Football Clubs
+        // BELARUS Football Clubs
         BELARUS_FC = footballClubs.values().stream()
                 .filter(fc -> BELARUS.equals(fc.getCity().getCountry())).toArray(FootballClub[]::new);
         BELARUS_FC_NAMES = footballClubs.values().stream().
